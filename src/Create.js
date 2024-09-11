@@ -14,9 +14,9 @@ const Create = () => {
 
       setIsPending(true);
       
-      fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3', {
+      fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/blogs', {
         method: 'POST',
-        headers: { "Content-Type": "application/json", 'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m' },
+        headers: { "Content-Type": "application/json",'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m' },
         body: JSON.stringify(blog)
       }).then(() => {
         console.log('new blog added')
