@@ -12,6 +12,8 @@ const Create = () => {
       e.preventDefault();
       const blog = { title, body, author };
     
+      setIsPending(true);
+
       // Step 1: Fetch current data
       fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${blogs}', {
         method: 'POST',
