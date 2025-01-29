@@ -28,6 +28,7 @@ const Create = () => {
           return res.json();
         })
         .then(data => {
+          let newBlog = {};
           // Step 2: Update the data
           const updatedBlogs = [...data.record.blogs, newBlog];
     
