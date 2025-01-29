@@ -11,21 +11,45 @@ const Create = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       const blog = { title, body, author };
-
-      setIsPending(true);
-      
-      fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/blogs', {
+    
+      // Step 1: Fetch current data
+      fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${blogs}', {
         method: 'POST',
-        headers: { "Content-Type": "application/json",'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m' },
-        body: JSON.stringify(blog)
-      }).then(() => {
-        console.log('new blog added')
-        setIsPending(false);
-        //history.go(1);
-        history.push('/');
+        headers: {
+          'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m'
+        },
       })
-    }
-
+        .then(res => {
+          if (!res.ok) {
+            throw Error('Could not fetch the data for that resource');
+          }
+          return res.json();
+        })
+        .then(data => {
+          // Step 2: Update the data
+          const updatedBlogs = [...data.record.blogs, newBlog];
+    
+          // Step 3: Send updated data
+          return fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${id}', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m'
+            },
+            body: JSON.stringify({ blogs: updatedBlogs }),
+          });
+        })
+        .then(() => {
+          console.log('New blog added');
+          setIsPending(false);
+          history.push('/');
+        })
+        .catch(err => {
+          console.error('Error:', err);
+          setIsPending(false);
+        });
+    };
+    
     return ( 
         <div className="create">
             <h2>Add a New Blog</h2>

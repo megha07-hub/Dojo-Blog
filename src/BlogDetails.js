@@ -3,11 +3,11 @@ import useFetch from "./useFetch";
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { data: blog, error, isPending } = useFetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/blogs' + id);
+  const { data: blog, error, isPending } = useFetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${id}');
   const history = useHistory();
 
   const handleClick= () => {
-    fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/blogs' + blog.id, {
+    fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${id}', {
       method: 'DELETE'
     }).then (() => {
       history.push('/');
