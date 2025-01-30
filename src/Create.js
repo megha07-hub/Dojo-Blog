@@ -15,11 +15,14 @@ const Create = () => {
       setIsPending(true);
 
       // Step 1: Fetch current data
-      fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${blogs}', {
+      fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/blogs', {
         method: 'POST',
         headers: {
-          'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m'
+          "Content-Type": "application/json",
+          "X-Master-Key": "$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m",
+          "X-Access-Key": "$2a$10$6.VQ0.KBcfdm4Zyc8Oj62OfDPskeBiAbwhZ/u7AHZx8seSSwaw.zW"
         },
+        body: JSON.stringify(blog)
       })
         .then(res => {
           if (!res.ok) {
@@ -28,16 +31,18 @@ const Create = () => {
           return res.json();
         })
         .then(data => {
-          let newBlog = {};
+          let newBlog = data.record.blogs[data.record.blogs.length - 1]; // Get the latest added blog
+
           // Step 2: Update the data
           const updatedBlogs = [...data.record.blogs, newBlog];
     
           // Step 3: Send updated data
-          return fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${id}', {
+          return fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3', {
             method: 'PUT',
             headers: {
-              'Content-Type': 'application/json',
-              'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m'
+              "Content-Type": "application/json",
+              "X-Master-Key": "$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m",
+              "X-Access-Key": "$2a$10$6.VQ0.KBcfdm4Zyc8Oj62OfDPskeBiAbwhZ/u7AHZx8seSSwaw.zW"
             },
             body: JSON.stringify({ blogs: updatedBlogs }),
           });
@@ -59,7 +64,7 @@ const Create = () => {
             <form onSubmit={handleSubmit}>
                 <label>Blog title:</label>
                 <input 
-                  typr="text"
+                  type="text"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -73,7 +78,7 @@ const Create = () => {
                 <label>Blog author:</label>
                 <select
                   value={author}
-                  onChange={(e) => setauthor(e.target.value)}
+                  onChange={(e) => setAuthor(e.target.value)}
                 >
                     <option value="mario">mario</option>
                     <option value="yoshi">yoshi</option>

@@ -9,10 +9,11 @@ const useFetch = (url) => {
     useEffect(() => {
       const abortCont = new AbortController();
 
-        fetch('https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/${id}',  {
+        fetch(url,  {
           headers: {
-            'Content-Type': 'application/json',
-            'X-Master-Key': '$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m'
+            "Content-Type": "application/json",
+            "X-Master-Key": "$2a$10$QIgl5qZFHtaLMiJePCogu./Hau8C3Y6M5vh5MDX5pW5yCqATcMv7m",
+            "X-Access-Key": "$2a$10$6.VQ0.KBcfdm4Zyc8Oj62OfDPskeBiAbwhZ/u7AHZx8seSSwaw.zW"
           },
           signal: abortCont.signal
         })
