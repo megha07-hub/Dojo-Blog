@@ -26,7 +26,7 @@ const useFetch = (url) => {
         })
         .then(data => {
           setIsPending(false);
-          setData(data.blogs || []);
+          setData(data.record?.blogs || []);
           setError(null);
         })
         .catch(err => {
