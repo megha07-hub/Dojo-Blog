@@ -7,7 +7,7 @@ const BlogDetails = () => {
   const history = useHistory();
 
   const handleClick= () => {
-    fetch(`https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/blog/${id}`, {
+    fetch(`https://api.jsonbin.io/v3/b/66e170bfe41b4d34e42d7dc3/blogs/${id}`, {
       method: 'DELETE'
     }).then (() => {
       history.push('/');
